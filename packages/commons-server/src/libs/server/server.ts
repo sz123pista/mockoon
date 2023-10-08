@@ -108,6 +108,10 @@ export class MockoonServer extends (EventEmitter as new () => TypedEmitter<Serve
       this.serverInstance = httpCreateServer(requestListener);
     }
 
+    // adjust keepalive time
+    this.serverInstance.keepAliveTimeout = (60 * 1000) + 1000;
+    this.serverInstance.headersTimeout = (60 * 1000) + 2000;
+
     // make serverInstance killable
     this.serverInstance = killable(this.serverInstance);
 
